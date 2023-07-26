@@ -13,6 +13,7 @@ var app = express();
 // Coneccion base de datos.
 try {
   db.authenticate();
+  db.sync();
   console.log('Coneción correcta con la base de datos.')
 } catch (error) {
   console.log(error)
@@ -25,7 +26,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
