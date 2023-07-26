@@ -1,5 +1,6 @@
 var {check, validationResult} = require('express-validator')
 var Usuario = require('../models/Usuario')
+var {generateId} = require('../helpers/tokens')
 
 const formularioLogin = (req, res) => {
     res.render('auth/login', {
@@ -70,14 +71,13 @@ const registrar = async (req, res) => {
         nombre,
         email, 
         password,
-        token: 123
+        token: generateId()
     })
 
-    return;
-
-
-    //const usuario = await Usuario.create(req.body);
-    //res.json(usuario)
+    return res.render('templates/mensaje', {
+        pagina: 'Registro Exitoso',
+        mensaje: 'Hemos enviado un email de confirmacion!'
+    })
 }
 
 const formularioOlvidePassword = (req, res) => {
