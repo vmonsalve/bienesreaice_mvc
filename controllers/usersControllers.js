@@ -1,6 +1,8 @@
 var {check, validationResult} = require('express-validator')
 var Usuario = require('../models/Usuario')
 var {generateId} = require('../helpers/tokens')
+var {emailRegistro} = require('../helpers/emails')
+
 
 const formularioLogin = (req, res) => {
     res.render('auth/login', {
@@ -67,11 +69,17 @@ const registrar = async (req, res) => {
         })
     }
     
-    await Usuario.create({
+    const usuario = await Usuario.create({
         nombre,
         email, 
         password,
         token: generateId()
+    })
+
+    emailRegistro({
+        nombre: usuario.nombre,
+        email: usuario.email,
+        token: usuario.token
     })
 
     return res.render('templates/mensaje', {
