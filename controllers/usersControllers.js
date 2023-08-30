@@ -94,11 +94,18 @@ const formularioOlvidePassword = (req, res) => {
     })
 }
 
+const confirmar = async (req, res) => {
+    const {token} = req.params
+    const usuario = Usuario.findOne({where : {token}})
+    console.log(usuario)
+}
+
 
 module.exports = {
     formularioLogin,
     formularioRegistro,
     formularioOlvidePassword,
-    registrar
+    registrar,
+    confirmar
 
 }

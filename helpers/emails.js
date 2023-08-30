@@ -1,4 +1,5 @@
 var nodemailer = require("nodemailer");
+const Processor = require("postcss/lib/processor");
 
 const emailRegistro = async (datos) => {
   const transport = nodemailer.createTransport({
@@ -20,7 +21,7 @@ const emailRegistro = async (datos) => {
     html: `
         <p>Hola ${nombre} comprueba tu cuenta en BienesRaices.com</p>
         <p>Tu cuenta ya esta lista, solo debes confirmarla en el siguiente enlace:
-        <a href="">Confirmar cuenta</a>
+        <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3000}/users/confirmar/${token}">Confirmar cuenta</a>
         </p>
         <p>Si tu no creaste esta cuenta, puedes ignorar el mensaje.</p>
 
